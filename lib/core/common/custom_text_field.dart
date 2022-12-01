@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String title;
   final String hintText;
-  const CustomTextField({Key? key, required this.title, required this.hintText})
+  final TextEditingController controller;
+  const CustomTextField(
+      {Key? key,
+      required this.title,
+      required this.hintText,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -24,6 +29,7 @@ class CustomTextField extends StatelessWidget {
             height: 5,
           ),
           TextField(
+            controller: controller,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.teal),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_geekgarden/feature/products/screens/main_product_screen.dart';
+
+import 'feature/products/controller/product_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productController = Get.put(ProductController());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Geek Garden',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainProductScreen(),
+      home: MainProductScreen(),
     );
   }
 }

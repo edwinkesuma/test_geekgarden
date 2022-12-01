@@ -5,7 +5,9 @@ import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_text_field.dart';
 
 class DeleteProduct extends StatelessWidget {
-  const DeleteProduct({Key? key}) : super(key: key);
+  DeleteProduct({Key? key}) : super(key: key);
+
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,8 @@ class DeleteProduct extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CustomTextField(
+            CustomTextField(
+              controller: textEditingController,
               title: "ID / NAMA PRODUK",
               hintText: "",
             ),

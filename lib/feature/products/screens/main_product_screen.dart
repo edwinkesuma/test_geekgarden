@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
+import 'package:test_geekgarden/feature/products/controller/product_controller.dart';
 import 'package:test_geekgarden/feature/products/screens/add_edit_product_screen.dart';
 import 'package:test_geekgarden/feature/products/screens/delete_product_screen.dart';
 import 'package:test_geekgarden/feature/products/screens/show_all_products.dart';
 
 class MainProductScreen extends StatelessWidget {
-  const MainProductScreen({Key? key}) : super(key: key);
+  final productsController = Get.find<ProductController>();
+  MainProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,8 @@ class MainProductScreen extends StatelessWidget {
           children: [
             CustomButton(
                 title: "Tampilkan data produk",
-                onPress: () {
+                onPress: () async {
+                  await productsController.getDataProduct();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
