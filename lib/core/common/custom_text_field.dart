@@ -4,11 +4,13 @@ class CustomTextField extends StatelessWidget {
   final String title;
   final String hintText;
   final TextEditingController controller;
-  const CustomTextField(
+  bool? isNumber = false;
+  CustomTextField(
       {Key? key,
       required this.title,
       required this.hintText,
-      required this.controller})
+      required this.controller,
+      this.isNumber})
       : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class CustomTextField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -30,12 +32,13 @@ class CustomTextField extends StatelessWidget {
           ),
           TextField(
             controller: controller,
+            keyboardType:
+                isNumber == true ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.teal),
               ),
               hintText: hintText,
-              // labelText: 'Nama produk',
             ),
           ),
         ],

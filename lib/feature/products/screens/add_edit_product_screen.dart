@@ -14,9 +14,11 @@ import 'package:test_geekgarden/feature/products/service/products_api.dart';
 class AddEditProductScreen extends StatelessWidget {
   final productController = Get.find<ProductController>();
   final bool isEdit;
+  final String warning;
   AddEditProductScreen({
     Key? key,
     required this.isEdit,
+    required this.warning,
   }) : super(key: key);
 
   TextEditingController nameController = TextEditingController();
@@ -24,6 +26,7 @@ class AddEditProductScreen extends StatelessWidget {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController idController = TextEditingController();
+  TextEditingController imageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,11 @@ class AddEditProductScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(isEdit ? "Edit Produk" : "Tambah Produk"),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             isEdit
                 ? Column(
@@ -44,6 +47,7 @@ class AddEditProductScreen extends StatelessWidget {
                         title: "Id",
                         hintText: "1",
                         controller: idController,
+                        isNumber: true,
                       ),
                       const SizedBox(
                         height: 15,
@@ -63,6 +67,15 @@ class AddEditProductScreen extends StatelessWidget {
               controller: priceController,
               title: "Harga:",
               hintText: "10000",
+              isNumber: true,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            CustomTextField(
+              controller: imageController,
+              title: "Url gambar:",
+              hintText: "https://picsum.photos/200/300.",
             ),
             const SizedBox(
               height: 15,
@@ -85,44 +98,89 @@ class AddEditProductScreen extends StatelessWidget {
             ),
             CustomButton(
               onPress: () async {
-                !isEdit
-                    ? await productController.addDataProduct(
-                        title: nameController.text,
-                        price: priceController.text,
-                        description: descriptionController.text,
-                        category: categoryController.text,
-                      )
-                    : await productController.updateDataProduct(
+                if (isEdit) {
+                  if (idController.text.isNotEmpty &&
+                      nameController.text.isNotEmpty &&
+                      priceController.text.isNotEmpty &&
+                      descriptionController.text.isNotEmpty &&
+                      categoryController.text.isNotEmpty) {
+                    await productController.updateDataProduct(
                         id: idController.text,
                         title: nameController.text,
                         price: priceController.text,
                         description: descriptionController.text,
                         category: categoryController.text,
-                      );
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultProductScreen(),
-                    ));
+                        onFinish: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResultProductScreen(
+                                  title: "Hasil Edit Produk",
+                                  ratingNull: true,
+                                ),
+                              ));
+                        });
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Tolong isi semua form'),
+                        backgroundColor: (Colors.black),
+                      ),
+                    );
+                  }
+                } else {
+                  if (nameController.text.isNotEmpty &&
+                      priceController.text.isNotEmpty &&
+                      descriptionController.text.isNotEmpty &&
+                      categoryController.text.isNotEmpty) {
+                    await productController.addDataProduct(
+                        title: nameController.text,
+                        price: priceController.text,
+                        description: descriptionController.text,
+                        category: categoryController.text,
+                        onFinish: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResultProductScreen(
+                                  title: "Hasil Tambah Produk",
+                                  ratingNull: true,
+                                ),
+                              ));
+                        });
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Tolong isi semua form'),
+                        backgroundColor: (Colors.black),
+                      ),
+                    );
+                  }
+                }
               },
               title: isEdit ? "Edit" : "Tambah",
             ),
             const SizedBox(
               height: 20,
             ),
-            RichText(
-              text: const TextSpan(
-                  text: 'Note from fakestoreapi.com docs: ',
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          'If you send an object like the code above, it will return you an object with a new id. remember that nothing in real will insert into the database. so if you want to access the new id you will get a 404 error.',
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.normal),
-                    )
-                  ]),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: RichText(
+                text: TextSpan(
+                    text: 'Note from fakestoreapi.com\'s docs: ',
+                    style: const TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: warning,
+                        style: const TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.normal),
+                      )
+                    ]),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
             ),
           ],
         ),

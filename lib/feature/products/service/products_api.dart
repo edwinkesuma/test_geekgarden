@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
@@ -14,17 +15,28 @@ class ProductsApi {
     return response;
   }
 
-  addDataProduct(
-      {required String title,
-      required String price,
-      required String description,
-      required String category}) async {
+  getSingleProduct({required String id}) async {
+    var url = '${Constan().url}products/$id';
+
+    var response = await http.get(Uri.parse(url));
+
+    return response;
+  }
+
+  addDataProduct({
+    required String title,
+    required String price,
+    required String description,
+    required String category,
+    String? image,
+  }) async {
     var url = '${Constan().url}products';
     Map data = {
       "title": title,
       "price": price,
       "description": description,
-      "category": category
+      "category": category,
+      "image": image ?? ""
     };
     var response = await http.post(Uri.parse(url), body: data);
     // log(response.body.toString(), name: 'response get data products');
@@ -38,13 +50,15 @@ class ProductsApi {
     required String price,
     required String description,
     required String category,
+    String? image,
   }) async {
     var url = '${Constan().url}products/$id';
     Map data = {
       "title": title,
       "price": price,
       "description": description,
-      "category": category
+      "category": category,
+      "image": image ?? ""
     };
 
     var response = await http.patch(Uri.parse(url), body: data);

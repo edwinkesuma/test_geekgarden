@@ -27,21 +27,59 @@ class DeleteProduct extends StatelessWidget {
               controller: textEditingController,
               title: "ID",
               hintText: "1",
+              isNumber: true,
             ),
             const SizedBox(
               height: 30,
             ),
             CustomButton(
               onPress: () async {
-                await productController.deleteDataProduct(
-                    id: textEditingController.text);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultProductScreen(),
-                    ));
+                if (textEditingController.text.isNotEmpty) {
+                  await productController.deleteDataProduct(
+                      onFinish: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultProductScreen(
+                                title: "Produk yang dihapus",
+                                ratingNull: false,
+                              ),
+                            ));
+                      },
+                      id: textEditingController.text);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Tolong isi semua form'),
+                      backgroundColor: (Colors.black),
+                    ),
+                  );
+                }
               },
               title: "Hapus",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: RichText(
+                text: const TextSpan(
+                    text: 'Note from fakestoreapi.com\'s docs: ',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text:
+                            'The product will not be deleted on the database. but if you sent data successfully it will return you the fake deleted product.',
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.normal),
+                      )
+                    ]),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
             ),
           ],
         ),

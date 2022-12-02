@@ -14,11 +14,16 @@ class ProductController extends GetxController {
 
   RxBool loadingGetProducts = false.obs;
 
-  getDataProduct() async {
-    await ProductsApi().getDataProducts().then((data) {
-      loadingGetProducts.value = true;
-      log(loadingGetProducts.toString(), name: "List Produk");
+  changeLoading(RxBool loading) {
+    loading.value = !loading.value;
+    log(loading.value.toString(), name: "LOADING");
+  }
 
+  getDataProduct({required Function onFinish}) async {
+    log("fetching data");
+    onFinish();
+    changeLoading(loadingGetProducts);
+    await ProductsApi().getDataProducts().then((data) {
       var responseJson = jsonDecode(data.body);
 
       if (responseJson != null) {
@@ -26,8 +31,23 @@ class ProductController extends GetxController {
           products.add(ListProductModel.fromJson(item));
         }
       }
-      loadingGetProducts.value = false;
-      log(loadingGetProducts.toString(), name: "List Produk");
+      changeLoading(loadingGetProducts);
+    });
+  }
+
+  getSingleProduct({required String id, required Function onFinish}) async {
+    log("fetch getSingleProduct");
+    changeLoading(loadingGetProducts);
+    onFinish();
+    await ProductsApi().getSingleProduct(id: id).then((data) {
+      var responseJson = jsonDecode(data.body);
+      log(responseJson.toString(), name: "responsejson");
+
+      product.clear();
+      var datas = ProductModel.fromJson(responseJson);
+
+      product.add(datas);
+      changeLoading(loadingGetProducts);
     });
   }
 
@@ -35,13 +55,19 @@ class ProductController extends GetxController {
       {required String title,
       required String price,
       required String description,
-      required String category}) async {
+      required String category,
+      String? image,
+      required Function onFinish}) async {
+    changeLoading(loadingGetProducts);
+    onFinish();
     await ProductsApi()
         .addDataProduct(
-            title: title,
-            price: price,
-            description: description,
-            category: category)
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      image: image,
+    )
         .then((data) {
       var responseJson = jsonDecode(data.body);
       product.clear();
@@ -51,6 +77,7 @@ class ProductController extends GetxController {
 
       log(product.toString(), name: "products");
       // product.value = responseJson;
+      changeLoading(loadingGetProducts);
     });
   }
 
@@ -60,24 +87,36 @@ class ProductController extends GetxController {
     required String price,
     required String description,
     required String category,
+    String? image,
+    required Function onFinish,
   }) async {
+    changeLoading(loadingGetProducts);
+    onFinish();
     await ProductsApi()
         .updateDataProduct(
-            id: id,
-            title: title,
-            price: price,
-            description: description,
-            category: category)
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      image: image,
+    )
         .then((data) {
       var responseJson = jsonDecode(data.body);
       product.clear();
       var datas = ProductModel.fromJson(responseJson);
 
       product.add(datas);
+      changeLoading(loadingGetProducts);
     });
   }
 
-  deleteDataProduct({required String id}) async {
+  deleteDataProduct({
+    required String id,
+    required Function onFinish,
+  }) async {
+    changeLoading(loadingGetProducts);
+    onFinish();
     await ProductsApi().deleteProduct(id).then((data) {
       var responseJson = jsonDecode(data.body);
 
@@ -85,6 +124,7 @@ class ProductController extends GetxController {
       var datas = ProductModel.fromJson(responseJson);
 
       product.add(datas);
+      changeLoading(loadingGetProducts);
     });
   }
 }
