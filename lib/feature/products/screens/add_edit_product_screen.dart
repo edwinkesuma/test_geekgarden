@@ -75,7 +75,7 @@ class AddEditProductScreen extends StatelessWidget {
             CustomTextField(
               controller: imageController,
               title: "Url gambar:",
-              hintText: "https://picsum.photos/200/300.",
+              hintText: "https://i.pravatar.cc",
             ),
             const SizedBox(
               height: 15,
@@ -110,6 +110,7 @@ class AddEditProductScreen extends StatelessWidget {
                         price: priceController.text,
                         description: descriptionController.text,
                         category: categoryController.text,
+                        image: imageController.text,
                         onFinish: () {
                           Navigator.push(
                               context,
@@ -138,6 +139,7 @@ class AddEditProductScreen extends StatelessWidget {
                         price: priceController.text,
                         description: descriptionController.text,
                         category: categoryController.text,
+                        image: imageController.text,
                         onFinish: () {
                           Navigator.push(
                               context,

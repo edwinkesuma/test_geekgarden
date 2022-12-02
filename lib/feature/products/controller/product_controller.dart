@@ -75,7 +75,7 @@ class ProductController extends GetxController {
 
       product.add(datas);
 
-      log(product.toString(), name: "products");
+      log(jsonEncode(product), name: "products");
       // product.value = responseJson;
       changeLoading(loadingGetProducts);
     });
