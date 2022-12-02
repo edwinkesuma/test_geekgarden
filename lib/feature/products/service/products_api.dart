@@ -31,4 +31,32 @@ class ProductsApi {
 
     return response;
   }
+
+  updateDataProduct({
+    required String id,
+    required String title,
+    required String price,
+    required String description,
+    required String category,
+  }) async {
+    var url = '${Constan().url}products/$id';
+    Map data = {
+      "title": title,
+      "price": price,
+      "description": description,
+      "category": category
+    };
+
+    var response = await http.patch(Uri.parse(url), body: data);
+
+    return response;
+  }
+
+  deleteProduct(String id) async {
+    var url = '${Constan().url}products/$id';
+
+    var response = await http.delete(Uri.parse(url));
+
+    return response;
+  }
 }

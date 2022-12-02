@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_text_field.dart';
 import 'package:test_geekgarden/feature/products/controller/product_controller.dart';
-import 'package:test_geekgarden/feature/products/screens/result_add_product_screen.dart';
+import 'package:test_geekgarden/feature/products/screens/result_product_screen.dart';
 import 'package:test_geekgarden/feature/products/service/products_api.dart';
 
 class AddEditProductScreen extends StatelessWidget {
@@ -23,6 +23,7 @@ class AddEditProductScreen extends StatelessWidget {
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
+  TextEditingController idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,20 @@ class AddEditProductScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+            isEdit
+                ? Column(
+                    children: [
+                      CustomTextField(
+                        title: "Id",
+                        hintText: "1",
+                        controller: idController,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
             CustomTextField(
               controller: nameController,
               title: "Nama:",
@@ -70,16 +85,24 @@ class AddEditProductScreen extends StatelessWidget {
             ),
             CustomButton(
               onPress: () async {
-                await productController.addDataProduct(
-                  title: nameController.text,
-                  price: priceController.text,
-                  description: descriptionController.text,
-                  category: categoryController.text,
-                );
+                !isEdit
+                    ? await productController.addDataProduct(
+                        title: nameController.text,
+                        price: priceController.text,
+                        description: descriptionController.text,
+                        category: categoryController.text,
+                      )
+                    : await productController.updateDataProduct(
+                        id: idController.text,
+                        title: nameController.text,
+                        price: priceController.text,
+                        description: descriptionController.text,
+                        category: categoryController.text,
+                      );
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ResultAddProductScreen(),
+                      builder: (context) => ResultProductScreen(),
                     ));
               },
               title: isEdit ? "Edit" : "Tambah",

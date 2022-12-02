@@ -19,7 +19,7 @@ class ListProductModel {
   ListProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    price = json['price'];
+    price = double.parse(json['price'].toString());
     description = json['description'];
     category = json['category'];
     image = json['image'];
@@ -48,7 +48,7 @@ class Rating {
   Rating({this.rate, this.count});
 
   Rating.fromJson(Map<String, dynamic> json) {
-    rate = json['rate'];
+    rate = double.parse(json['rate'].toString());
     count = json['count'];
   }
 

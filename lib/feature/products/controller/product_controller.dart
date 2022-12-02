@@ -53,4 +53,38 @@ class ProductController extends GetxController {
       // product.value = responseJson;
     });
   }
+
+  updateDataProduct({
+    required String id,
+    required String title,
+    required String price,
+    required String description,
+    required String category,
+  }) async {
+    await ProductsApi()
+        .updateDataProduct(
+            id: id,
+            title: title,
+            price: price,
+            description: description,
+            category: category)
+        .then((data) {
+      var responseJson = jsonDecode(data.body);
+      product.clear();
+      var datas = ProductModel.fromJson(responseJson);
+
+      product.add(datas);
+    });
+  }
+
+  deleteDataProduct({required String id}) async {
+    await ProductsApi().deleteProduct(id).then((data) {
+      var responseJson = jsonDecode(data.body);
+
+      product.clear();
+      var datas = ProductModel.fromJson(responseJson);
+
+      product.add(datas);
+    });
+  }
 }
