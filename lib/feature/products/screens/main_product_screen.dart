@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_exit_popup_dialog.dart';
@@ -45,8 +46,8 @@ class MainProductScreen extends StatelessWidget {
                       );
                     });
                   }),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               CustomButton(
                   title: "Tambah produk",
@@ -61,8 +62,8 @@ class MainProductScreen extends StatelessWidget {
                           ),
                         ));
                   }),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               CustomButton(
                   title: "Edit produk",
@@ -77,8 +78,8 @@ class MainProductScreen extends StatelessWidget {
                           ),
                         ));
                   }),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               CustomButton(
                   title: "Hapus produk",

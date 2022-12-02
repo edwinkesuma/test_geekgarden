@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:test_geekgarden/core/common/custom_button.dart';
@@ -37,8 +38,8 @@ class AddEditProductScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             isEdit
                 ? Column(
@@ -49,8 +50,8 @@ class AddEditProductScreen extends StatelessWidget {
                         controller: idController,
                         isNumber: true,
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: 15.h,
                       ),
                     ],
                   )
@@ -60,8 +61,8 @@ class AddEditProductScreen extends StatelessWidget {
               title: "Nama:",
               hintText: "Baju",
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               controller: priceController,
@@ -69,32 +70,32 @@ class AddEditProductScreen extends StatelessWidget {
               hintText: "10000",
               isNumber: true,
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               controller: imageController,
               title: "Url gambar:",
               hintText: "https://i.pravatar.cc",
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               controller: descriptionController,
               title: "Deskripsi:",
               hintText: "Produk yang sangat bagus.",
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               controller: categoryController,
               title: "Kategori:",
               hintText: "Pakaian pria",
             ),
-            const SizedBox(
-              height: 75,
+            SizedBox(
+              height: 75.h,
             ),
             CustomButton(
               onPress: () async {
@@ -162,11 +163,11 @@ class AddEditProductScreen extends StatelessWidget {
               },
               title: isEdit ? "Edit" : "Tambah",
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0.w),
               child: RichText(
                 text: TextSpan(
                     text: 'Note from fakestoreapi.com\'s docs: ',
@@ -181,8 +182,8 @@ class AddEditProductScreen extends StatelessWidget {
                     ]),
               ),
             ),
-            const SizedBox(
-              height: 40,
+            SizedBox(
+              height: 40.h,
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_loading.dart';
@@ -25,7 +26,7 @@ class ShowAllProducts extends StatelessWidget {
                 ? const SizedBox()
                 : ListView.separated(
                     separatorBuilder: (context, index) => Container(
-                      height: 1,
+                      height: 1.h,
                       color: Colors.grey,
                     ),
                     itemCount: productsController.products.value.length,
@@ -52,15 +53,15 @@ class ShowAllProducts extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(
-                                height: 100,
-                                width: 100,
+                                height: 100.h,
+                                width: 100.w,
                                 child: Image.network(
                                   productsController.products[index].image!,
                                   fit: BoxFit.fill,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 10,
+                              SizedBox(
+                                width: 10.w,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,8 +73,8 @@ class ShowAllProducts extends StatelessWidget {
                                   Text("rating:"),
                                 ],
                               ),
-                              const SizedBox(
-                                width: 10,
+                              SizedBox(
+                                width: 10.w,
                               ),
                               Expanded(
                                 child: Column(
@@ -114,7 +115,7 @@ class ShowAllProducts extends StatelessWidget {
                     },
                   ),
             productsController.loadingGetProducts.value == true
-                ? CustomLoading()
+                ? const CustomLoading()
                 : const SizedBox(),
           ],
         ),

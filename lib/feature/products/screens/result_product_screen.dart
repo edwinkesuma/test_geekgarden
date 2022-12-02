@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_loading.dart';
@@ -57,123 +58,125 @@ class ResultProductScreen extends StatelessWidget {
               productController.loadingGetProducts.value == true
                   ? const SizedBox()
                   : Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 10,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20.h,
+                        horizontal: 10.w,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: Image.network(
-                              productController.product[0].image!,
-                              height: 200,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Icon(
-                                  Icons.image,
-                                );
-                              },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Image.network(
+                                productController.product[0].image!,
+                                height: 160.h,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(
+                                    Icons.image,
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "\$${productController.product[0].price.toString()}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
+                            SizedBox(
+                              height: 20.h,
                             ),
-                          ),
-                          !ratingNull
-                              ? Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 18,
-                                    ),
-                                    Text(
-                                        "${productController.product[0].rating?.rate}"),
-                                  ],
-                                )
-                              : SizedBox(),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            productController.product[0].title.toString(),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "\$${productController.product[0].price.toString()}",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.h,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 1,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text(
-                            "Kategori",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                            !ratingNull
+                                ? Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                        size: 18.h,
+                                      ),
+                                      Text(
+                                          "${productController.product[0].rating?.rate}"),
+                                    ],
+                                  )
+                                : SizedBox(),
+                            SizedBox(
+                              height: 10.h,
                             ),
-                          ),
-                          Text(
-                              productController.product[0].category.toString()),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 1,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text(
-                            "Produk id",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              productController.product[0].title.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(productController.product[0].id.toString()),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 1,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text(
-                            "Deskripsi",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(productController.product[0].description
-                              .toString()),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          detailProduct != true
-                              ? CustomButton(
-                                  onPress: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MainProductScreen()),
-                                        (Route<dynamic> route) => false);
-                                  },
-                                  title: ("Kembali ke Beranda"),
-                                )
-                              : SizedBox(),
-                        ],
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              height: 1.h,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            const Text(
+                              "Kategori",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(productController.product[0].category
+                                .toString()),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              height: 1.h,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            const Text(
+                              "Produk id",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(productController.product[0].id.toString()),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              height: 1.h,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            const Text(
+                              "Deskripsi",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(productController.product[0].description
+                                .toString()),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                            detailProduct != true
+                                ? CustomButton(
+                                    onPress: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MainProductScreen()),
+                                          (Route<dynamic> route) => false);
+                                    },
+                                    title: ("Kembali ke Beranda"),
+                                  )
+                                : const SizedBox(),
+                          ],
+                        ),
                       ),
                     ),
               productController.loadingGetProducts.value == true

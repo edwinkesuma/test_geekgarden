@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../feature/products/controller/product_controller.dart';
@@ -14,13 +15,13 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: ElevatedButton(
         onPressed: onPress,
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size(
+          minimumSize: Size(
             double.infinity,
-            50,
+            40.h,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),

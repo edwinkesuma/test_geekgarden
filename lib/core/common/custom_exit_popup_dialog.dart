@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<bool> customExitPopupDialog(context) async {
   return await showDialog(
@@ -7,12 +8,12 @@ Future<bool> customExitPopupDialog(context) async {
       builder: (BuildContext context) {
         return AlertDialog(
           content: Container(
-            height: 115,
+            height: 115.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Anda yakin mau meninggalkan aplikasi?"),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Row(
                   children: [
                     Expanded(
@@ -24,7 +25,7 @@ Future<bool> customExitPopupDialog(context) async {
                         style: ElevatedButton.styleFrom(primary: Colors.red),
                       ),
                     ),
-                    const SizedBox(width: 15),
+                    SizedBox(width: 15.w),
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {

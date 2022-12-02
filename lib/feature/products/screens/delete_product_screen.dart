@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:test_geekgarden/core/common/custom_button.dart';
 import 'package:test_geekgarden/core/common/custom_text_field.dart';
@@ -29,8 +30,8 @@ class DeleteProduct extends StatelessWidget {
               hintText: "1",
               isNumber: true,
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             CustomButton(
               onPress: () async {
@@ -58,11 +59,11 @@ class DeleteProduct extends StatelessWidget {
               },
               title: "Hapus",
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0.w),
               child: RichText(
                 text: const TextSpan(
                     text: 'Note from fakestoreapi.com\'s docs: ',
@@ -78,8 +79,8 @@ class DeleteProduct extends StatelessWidget {
                     ]),
               ),
             ),
-            const SizedBox(
-              height: 40,
+            SizedBox(
+              height: 40.h,
             ),
           ],
         ),
